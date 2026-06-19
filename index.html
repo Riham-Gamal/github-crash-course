@@ -20,5 +20,52 @@
         <a href="https://acad.link/git">our course</a>.
       </p>
     </main>
+
+    <section class="todo-section">
+      <h2>Todo Checklist</h2>
+      <div class="todo-form">
+        <input id="todo-input" type="text" placeholder="add your to do" />
+        <button id="add-todo-button" type="button">Add</button>
+      </div>
+      <ul id="todo-list" class="todo-list"></ul>
+    </section>
+
+    <script>
+      const todoInput = document.getElementById('todo-input');
+      const addButton = document.getElementById('add-todo-button');
+      const todoList = document.getElementById('todo-list');
+
+      function addTodo() {
+        const text = todoInput.value.trim();
+        if (!text) return;
+
+        const listItem = document.createElement('li');
+        const textSpan = document.createElement('span');
+        textSpan.textContent = text;
+        textSpan.className = 'todo-text';
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '×';
+        deleteButton.className = 'todo-delete';
+        deleteButton.type = 'button';
+        deleteButton.addEventListener('click', () => {
+          listItem.remove();
+        });
+
+        listItem.appendChild(textSpan);
+        listItem.appendChild(deleteButton);
+        todoList.appendChild(listItem);
+
+        todoInput.value = '';
+        todoInput.focus();
+      }
+
+      addButton.addEventListener('click', addTodo);
+      todoInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          addTodo();
+        }
+      });
+    </script>
   </body>
 </html>
